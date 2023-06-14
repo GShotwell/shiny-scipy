@@ -1,0 +1,70 @@
+---
+title: "Build extensible web apps with Shiny"
+author: "Gordon Shotwell"
+format: html
+---
+
+## Scientific communication is hard
+
+```{python}
+#| echo: false
+
+from helpers import include_shiny_folder
+
+```
+::: {.incremental}
+- Your findings are complex or nuanced
+- People misinterpret things 
+- Our understanding of the world is always changing
+:::
+
+## Science needs a good framework
+
+::: {.incremental}
+- An easy framework which 
+- The flexibility to design delightful, intuitive interfaces
+- The performance to build demanding data applications 
+:::
+
+
+## Shiny can help
+
+Shiny is an extensible web application written entirely in Python and is ideal for scientific communication:
+::: {.incremental}
+- Reactive execution makes your app fast
+- Dynamic user interfaces make them intuitive
+- Custom CSS makes them beautiful
+- Modules make them maintainable
+:::
+
+# Reactive execution
+:::: {.grid .column-screen-inset}
+::: {.g-col-12 .g-col-md-9}
+```{python}
+#| echo: false
+#| output: asis  
+include_shiny_folder("apps/basic-app")
+```
+:::
+
+::: {.g-col-12 .g-col-md-3 #vcenter}
+```{mermaid}
+flowchart TD
+  S[Dates] --> F[Filtered Data]
+  F --> H((Distribution))
+  F --> D((Daily Error))
+  A[Alpha] --> D
+```
+:::
+::::
+
+```{python}
+#| echo: false
+#| output: asis  
+include_shiny_folder("apps/basic-app")
+```
+```{python}
+#| echo: false
+#| output: asis  
+include_shiny_folder("apps/basic-app")
+```
