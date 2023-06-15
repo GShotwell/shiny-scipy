@@ -18,6 +18,7 @@ from helpers import include_shiny_folder
 - Our understanding of the world is always changing
 :::
 
+
 ## Science needs a good framework
 
 ::: {.incremental}
@@ -33,8 +34,8 @@ Shiny is an extensible web application written entirely in Python and is ideal f
 ::: {.incremental}
 - Reactive execution makes your app fast
 - Dynamic user interfaces make them intuitive
-- Custom CSS makes them beautiful
 - Modules make them maintainable
+- Custom CSS makes them beautiful
 :::
 
 # Reactive execution
@@ -43,7 +44,7 @@ Shiny is an extensible web application written entirely in Python and is ideal f
 ```{python}
 #| echo: false
 #| output: asis  
-include_shiny_folder("apps/basic-app")
+include_shiny_folder("apps/1-reactivity")
 ```
 :::
 
@@ -58,13 +59,71 @@ flowchart TD
 :::
 ::::
 
+
+# Dynamic UI
+
+:::: {.grid .column-screen-inset}
+::: {.g-col-12 .g-col-md-9}
 ```{python}
 #| echo: false
 #| output: asis  
-include_shiny_folder("apps/basic-app")
+include_shiny_folder("apps/2-dynamic-ui")
 ```
+:::
+
+::: {.g-col-12 .g-col-md-3 #vcenter}
+```{mermaid}
+flowchart TD
+  D[Dates] --> F[Filtered Data]
+  F --> H((Distribution))
+  F --> E((Daily Error))
+  S[State] -.-> C(Cities)
+  C --> F
+  A[Alpha] --> E
+```
+:::
+::::
+
+# Modules
+
+:::: {.grid .column-screen-inset}
+::: {.g-col-12 .g-col-md-9}
 ```{python}
 #| echo: false
 #| output: asis  
-include_shiny_folder("apps/basic-app")
+include_shiny_folder("apps/3-modules")
 ```
+:::
+
+::: {.g-col-12 .g-col-md-3 #vcenter}
+```{mermaid}
+flowchart TD
+  S[Dates] --> F[Filtered Data]
+  F --> H((Distribution))
+  F --> D((Daily Error))
+  A[Alpha] --> D
+```
+:::
+::::
+
+# CSS
+
+:::: {.grid .column-screen-inset}
+::: {.g-col-12 .g-col-md-9}
+```{python}
+#| echo: false
+#| output: asis  
+include_shiny_folder("apps/4-css")
+```
+:::
+
+::: {.g-col-12 .g-col-md-3 #vcenter}
+```{mermaid}
+flowchart TD
+  S[Dates] --> F[Filtered Data]
+  F --> H((Distribution))
+  F --> D((Daily Error))
+  A[Alpha] --> D
+```
+:::
+::::
