@@ -3,22 +3,25 @@ import pandas as pd
 from pathlib import Path
 from plots import temp_distirbution, daily_error
 
+
+def divided_row(col1, col2):
+    out = ui.row(
+        ui.column(4, col1),
+        ui.column(8, col2)
+    )
+    return out
+
+
 app_ui = ui.page_fluid(
-    ui.layout_sidebar(
-        ui.panel_sidebar(
-            ui.input_date_range(
+    divided_row(ui.input_date_range(
                 "dates",
                 "Date",
                 start="2022-01-01",
-                end="2022-01-30",
-            )
-        ),
-        ui.panel_main(
-            ui.output_plot("error_distribution"),
-            ui.output_plot("error_by_day"),
-            ui.input_slider("alpha", "Plot Alpha", value=0.5, min=0, max=1),
-        ),
-    )
+                end="2022-01-30",), ui.output_plot("error_distribution")),
+    divided_row(
+        ui.input_slider("alpha", "Plot Alpha", value=0.5, min=0, max=1),
+        ui.output_plot("error_by_day")
+        )
 )
 
 
