@@ -4,7 +4,7 @@ author: "Gordon Shotwell"
 format: html
 ---
 
-## Scientific communication is hard
+## Scientific communication is hard!
 
 ```{python}
 #| echo: false
