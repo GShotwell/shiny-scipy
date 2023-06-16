@@ -11,21 +11,21 @@ format: html
 from helpers import include_shiny_folder
 ```
 
-The fundamental challenge of scientific communication is that you're trying to boil an lifetime to expertise into a something which can be understood by someone new to your field. 
-Often your findings are nuanced, easy to misinterpret, and difficult to explain without providing a lot of context.
+The fundamental challenge of scientific communication is that you're trying to boil a lifetime of expertise into something that can be understood by someone new to your field. 
+Often, your findings are nuanced, easy to misinterpret, and difficult to explain without providing a lot of context. 
 Web applications are an excellent way to communicate scientific results because they allow users to develop their intuition by interacting with the data.
 
 ### Science needs a good framework
 
-Most Python web frameworks are narrowly focused on a level of complexity, and have trouble accommodating the full range of scientific problems. 
-For exampple, Streamlit is great for simple applications but isn't performant enough for complicated ones, while tools like Django and Flask are hard to get started with if you don't have a web development background. 
+Most Python web frameworks are narrowly focused on a certain level of complexity and have trouble accommodating the full range of scientific problems. 
+For example, Streamlit is great for simple applications but isn't performant enough for complicated ones, while tools like Django and Flask are hard to get started with if you don't have a web development background.
 
 ### Shiny can help
 
-Shiny is an extensible web application framework written entirely in Python and is ideal for scientific communication because it can accommodate an extremely wide range of problems. 
-Shiny apps are easy enough that you can develop them quickly, but performant enough that you can use it for complicated applications with lots of users.
+[Shiny](https://shiny.rstudio.com/py/) is an extensible web application framework written entirely in Python and is ideal for scientific communication because it can accommodate an extremely wide range of problems. 
+Shiny apps are easy enough that you can develop them quickly, but performant enough that you can use them for complicated applications with lots of users.
 
-There are four key features which make shiny great for scientific applications
+There are three key features that make Shiny great for scientific applications:
 
 1) Reactive execution makes your app fast
 2) Dynamic user interfaces make them intuitive
@@ -34,16 +34,17 @@ There are four key features which make shiny great for scientific applications
 # Reactive execution
 
 Shiny is built around a reactive execution engine, which means that elements of your application only rerender when they need to.
-When your app runs Shiny builds a computation graph of the relationships between inputs, outputs, and intermediary calculations and rerenders a component if and only if its upstream dependencies change. 
-Importantly, Shiny _infers_ these relationships from the application structure, and so you don't need manually manage application state. 
-This means that you can build extremely efficient applications without worrying about cache invalidation or callback functions. 
+When your app runs, Shiny builds a computation graph of the relationships between inputs, outputs, and intermediary calculations and rerenders a component if and only if its upstream dependencies change. 
+Importantly, Shiny infers these relationships from the application structure, so you don't need to manually manage application state. 
+This means that you can build extremely efficient applications without worrying about cache invalidation or callback functions.
+
 
 To illustrate reactivitity consider this app which displays weather forecast accuracy.^[Data from the [USA National Weather Service](https://github.com/speegled/weather_forecasts), as emailed by the University of Illinois list server and processed by [Sai Shreyas Bhavanasi, Harrison Lanier, Lauren Schmiedeler, and Clayton Strauch at the Saint Louis University Department of Mathematics and Statistics](https://github.com/speegled/weather_forecasts).]
-This app has two inputs and two plot outputs.
-The date range effects both plots, but the alpha slider only effects the scatter plot. 
-The function calls which make up the app allow Shiny to understand the computation graph drawn to the right of the app, and only rerdeer the scatter plot when the slider changes. 
+This app has two inputs and two plot outputs. 
+The date range affects both plots, but the alpha slider only affects the scatter plot. 
+The function calls that make up the app allow Shiny to understand the computation graph drawn to the right of the app and only rerender the scatter plot when the slider changes. 
 
-This application architecture is great for scientific communication because it scales extremely well with app complexity.
+This application architecture is great for scientific communication because it scales extremely well with app complexity. 
 It works well for simple internal apps because Shiny infers the graph automatically, but it also works well for large complex problems because it renders the app efficiently.
 
 
@@ -77,16 +78,14 @@ flowchart TD
 
 # Dynamic UI
 
-One of the best things you do for your users is to reduce the number of ways they can make mistakes. 
-Often when building an app we'll give the user lots of options which can sometimes conflict with one antoher and cause errors. 
-For example, let's say that we wanted to let the user filter the weather data by city or state. 
-One option would be to provide two selection fields which contained all of the cities and all of the states, but that creates two big problems. 
-First, since both categories are fairly big, it's confusing to give people so many choices. 
-Second, if the user selects incompatible state/city combinations they'll get an error. 
-You can avoid this error by populating the `city` dropdown based on the `state` selection which makes your app more intuitive and less error prone. 
+One of the best things you can do for your users is to reduce the number of ways they can make mistakes. 
+Often when building an app, we provide users with lots of options that can sometimes conflict with each other and cause errors. 
+For example, let's say we wanted to allow the user to filter weather data by city or state. 
+One option would be to provide two selection fields that contain all the cities and states, but that creates two significant problems. 
+First, since both categories are fairly large, giving users so many choices can be confusing. Second, if the user selects incompatible state/city combinations, they will encounter an error. 
+You can avoid this error by populating the city dropdown based on the state selection, making your app more intuitive and less error-prone.
 
-Shiny probides a rich set of tools for creating Dynamic UIs which respond to user actions. 
-These include:
+Shiny provides a rich set of tools for creating dynamic UIs that respond to user actions. These tools include:
 - [output_ui](https://shiny.rstudio.com/py/api/ui.output_ui.html#shiny.ui.output_ui) to dynamically render UI elements
 - [panel_conditional](https://shiny.rstudio.com/py/api/ui.panel_conditional.html) to show or hide elements of the UI based on logical conditions
 - [update functions](https://shiny.rstudio.com/py/api/ui.update_select.html) to modify input elements based on user actions
@@ -118,11 +117,12 @@ flowchart TD
 # Modules
 
 Maintaining web applications is as important as developing them. 
-It's easy to keep adding features to an application without thinking through how that code will be maintained and end up with a complex codebase which is difficult to reason about. 
-Shiny has a number of ways to encapsulate and share code, but the most comprehensive strategy is to extract elements of your application into [a module](https://shiny.rstudio.com/py/docs/workflow-modules.html).
-Shiny modules allow you to bundel UI and server elements into a mini-app which can be inserted into other shiny apps. 
-For example, let's extract the dynamic state/city output into its own module.
-This lets us move that part of the application into its own file, avoid repetition by reusiung the component, and transport it to other applications which need a similar component. 
+It's easy to keep adding features to an application without considering how that code will be maintained, resulting in a complex codebase that is difficult to understand. 
+Shiny provides several ways to encapsulate and share code, but the most comprehensive strategy is to extract elements of your application into a module. 
+Shiny modules allow you to bundle UI and server elements into a mini-app that can be inserted into other Shiny apps or shared with other users.
+
+For example, let's extract the dynamic state/city output into its own module. 
+This allows us to move that part of the application into a separate file, avoid repetition by reusing the component, and easily transport it to other applications that require a similar component.
 
 :::: {.grid .column-screen-inset}
 ::: {.g-col-12 .g-col-md-9}
@@ -148,3 +148,11 @@ flowchart TD
 ```
 :::
 ::::
+
+# Conclusion 
+
+Shiny is a wonderful tool for scientific communication. 
+With it you can use your existing python code base to build powerful, intuitive and beautiful applications to communicate your findings to the world. 
+
+
+
