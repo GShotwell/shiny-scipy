@@ -2,13 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.361">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Gordon Shotwell">
 
-<title>. - Build extensible web apps with Shiny</title>
+<title>Build extensible applications with Shiny</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -61,8 +60,7 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-submit-button-title": "Submit"
   }
 }</script>
 <script src="site_libs/quarto-diagram/mermaid.min.js"></script>
@@ -81,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">.</span>
+    <span class="navbar-title">Build extensible applications with Shiny</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -95,7 +93,10 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Home</span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
+            <div class="quarto-navbar-tools ms-auto tools-wide">
+    <a href="https://github.com/GShotwell/shiny-scipy" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+    <a href="https://discord.gg/AQVJzG2bnN" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-dicord"></i></a>
+    <a href="https://www.linkedin.com/in/gshotwell/" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
 </div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
@@ -110,11 +111,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#scientific-communication-is-hard" id="toc-scientific-communication-is-hard" class="nav-link active" data-scroll-target="#scientific-communication-is-hard">Scientific communication is hard!</a>
-  <ul class="collapse">
-  <li><a href="#science-needs-a-good-framework" id="toc-science-needs-a-good-framework" class="nav-link" data-scroll-target="#science-needs-a-good-framework">Science needs a good framework</a></li>
+  <li><a href="#science-needs-a-good-framework" id="toc-science-needs-a-good-framework" class="nav-link active" data-scroll-target="#science-needs-a-good-framework">Science needs a good framework</a></li>
   <li><a href="#shiny-can-help" id="toc-shiny-can-help" class="nav-link" data-scroll-target="#shiny-can-help">Shiny can help</a></li>
-  </ul></li>
   <li><a href="#reactive-execution" id="toc-reactive-execution" class="nav-link" data-scroll-target="#reactive-execution">Reactive execution</a></li>
   <li><a href="#dynamic-ui" id="toc-dynamic-ui" class="nav-link" data-scroll-target="#dynamic-ui">Dynamic UI</a></li>
   <li><a href="#modules" id="toc-modules" class="nav-link" data-scroll-target="#modules">Modules</a></li>
@@ -127,19 +125,13 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Build extensible web apps with Shiny</h1>
+<h1 class="title">Scientific communication is hard!</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Gordon Shotwell </p>
-          </div>
-  </div>
     
   
     
@@ -148,8 +140,6 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="scientific-communication-is-hard" class="level1">
-<h1>Scientific communication is hard!</h1>
 <p>The fundamental challenge of scientific communication is that you’re trying to boil a lifetime of expertise into something that can be understood by someone new to your field. Often, your findings are nuanced, easy to misinterpret, and difficult to explain without providing a lot of context. Web applications are an excellent way to communicate scientific results because they allow users to develop their intuition by interacting with the data.</p>
 <section id="science-needs-a-good-framework" class="level3">
 <h3 class="anchored" data-anchor-id="science-needs-a-good-framework">Science needs a good framework</h3>
@@ -164,7 +154,6 @@ ul.task-list li input[type="checkbox"] {
 <li>Dynamic user interfaces make them intuitive</li>
 <li>Modules make them maintainable</li>
 </ol>
-</section>
 </section>
 <section id="reactive-execution" class="level1 page-columns page-full">
 <h1>Reactive execution</h1>
@@ -4350,6 +4339,27 @@ def server(input, output, session):
 app = App(app_ui, server)
 
 
+## file: city_state.py
+from shiny import module, ui, render
+
+
+@module.ui
+def city_state_ui():
+    return ui.TagList(
+        ui.input_selectize("state", "State", choices=["NY", "CO", "OR", "MI"], selected="NY"),
+        ui.output_ui("cities_ui")
+    )
+
+
+@module.server
+def city_state_server(input, output, session, df):
+    @output
+    @render.ui
+    def cities_ui():
+        opts = df[df['state'] == input.state()]['city'].unique().tolist()
+        return ui.input_selectize("cities", "Cities", choices=opts, selected=opts[0], multiple=True)
+    return input.cities
+
 ## file: plots.py
 import pandas as pd
 from plotnine import (
@@ -6309,28 +6319,7 @@ date,city,state,observed_temp,forecast_temp
 2022-01-31,FLINT,MI,20,19
 2022-01-31,FLINT,MI,20,19
 2022-01-31,FLINT,MI,20,20
-
-
-## file: city_state.py
-from shiny import module, ui, render
-
-
-@module.ui
-def city_state_ui():
-    return ui.TagList(
-        ui.input_selectize("state", "State", choices=["NY", "CO", "OR", "MI"], selected="NY"),
-        ui.output_ui("cities_ui")
-    )
-
-
-@module.server
-def city_state_server(input, output, session, df):
-    @output
-    @render.ui
-    def cities_ui():
-        opts = df[df['state'] == input.state()]['city'].unique().tolist()
-        return ui.input_selectize("cities", "Cities", choices=opts, selected=opts[0], multiple=True)
-    return input.cities</code></pre>
+</code></pre>
 </div>
 <div id="vcenter" class="g-col-12 g-col-md-3">
 <div class="cell">

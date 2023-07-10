@@ -2,14 +2,14 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Build extensible web apps with Shiny",
+    "title": "Scientific communication is hard!",
     "section": "",
-    "text": "The fundamental challenge of scientific communication is that you’re trying to boil a lifetime of expertise into something that can be understood by someone new to your field. Often, your findings are nuanced, easy to misinterpret, and difficult to explain without providing a lot of context. Web applications are an excellent way to communicate scientific results because they allow users to develop their intuition by interacting with the data.\n\n\nMost Python web frameworks are narrowly focused on a certain level of complexity and have trouble accommodating the full range of scientific problems. For example, Streamlit is great for simple applications but isn’t performant enough for complicated ones, while tools like Django and Flask are hard to get started with if you don’t have a web development background.\n\n\n\nShiny is an extensible web application framework written entirely in Python and is ideal for scientific communication because it can accommodate an extremely wide range of problems. Shiny apps are easy enough that you can develop them quickly, but performant enough that you can use them for complicated applications with lots of users.\nThere are three key features that make Shiny great for scientific applications:\n\nReactive execution makes your app fast\nDynamic user interfaces make them intuitive\nModules make them maintainable"
+    "text": "The fundamental challenge of scientific communication is that you’re trying to boil a lifetime of expertise into something that can be understood by someone new to your field. Often, your findings are nuanced, easy to misinterpret, and difficult to explain without providing a lot of context. Web applications are an excellent way to communicate scientific results because they allow users to develop their intuition by interacting with the data."
   },
   {
     "objectID": "index.html#footnotes",
     "href": "index.html#footnotes",
-    "title": "Build extensible web apps with Shiny",
+    "title": "Scientific communication is hard!",
     "section": "Footnotes",
     "text": "Footnotes\n\n\nData from the USA National Weather Service, as emailed by the University of Illinois list server and processed by Sai Shreyas Bhavanasi, Harrison Lanier, Lauren Schmiedeler, and Clayton Strauch at the Saint Louis University Department of Mathematics and Statistics.↩︎"
   }

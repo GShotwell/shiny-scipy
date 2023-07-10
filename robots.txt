@@ -1,1 +1,1 @@
-Sitemap: https://github.com/GShotwell/shiny-scipy/sitemap.xml
+Sitemap: https://GShotwell.github.io/shiny-scipy/sitemap.xml
