@@ -1,6 +1,4 @@
 ---
-title: "Build extensible web apps with Shiny"
-author: "Gordon Shotwell"
 format: html
 ---
 
